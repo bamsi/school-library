@@ -1,14 +1,16 @@
 require_relative 'nameable'
 class Person < Nameable
   attr_accessor :name, :age
+
   attr_reader :id, :rentals
 
-  def initialize(age, name = 'unkonwn', parent_permission: true)
+  def initialize(age, name, parent_permission)
+    @id = ObjectSpace.each_object(Person).count + 1
     @name = name
     @age = age
     @parent_permission = parent_permission
-    super
     @rentals = []
+    super()
   end
 
   private
