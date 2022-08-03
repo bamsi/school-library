@@ -1,4 +1,3 @@
-require 'pry'
 require_relative 'app'
 require_relative 'book'
 
@@ -47,7 +46,7 @@ end
 def display_create_rental()
   puts 'Select a book from the following list by number (not id)'
   index = 0
-  ObjectSpace.each_object(Book) do |x|
+  @app.books.each do |x|
     puts "(#{index}) Title: #{x.title}, Author: #{x.author}"
     index = + 1
   end
@@ -55,7 +54,7 @@ def display_create_rental()
   puts "\n"
   puts 'Select a person from the following list by number (not id)'
   index = 0
-  ObjectSpace.each_object(Person) do |x|
+  @app.persons.each do |x|
     puts "(#{index}) [#{x.class}] Name: #{x.name}, ID: #{x.age}, Age: #{x.age}"
     index = + 1
   end
@@ -74,27 +73,31 @@ def rental_by_person_id
   end
 end
 
+def get_choice(number)
+  case number
+  when 1
+    @app.list_books
+  when 2
+    @app.list_persons
+  when 3
+    display_create_person
+  when 4
+    display_create_book
+  when 5
+    display_create_rental
+  when 6
+    rental_by_person_id
+  else
+    @exit_selection = true
+  end
+end
+
 def main
   until @exit_selection
     puts 'Please choose an option by entering a number'
     @options.each { |item| puts item }
     number = gets.to_i
-    case number
-    when 2
-      @app.list_persons
-    when 3
-      display_create_person
-    when 4
-      display_create_book
-    when 5
-      display_create_rental
-    when 6
-      rental_by_person_id
-    when 7
-      @exit_selection = true
-    else
-      puts 'Wrong choice'
-    end
+    get_choice(number)
   end
 end
 

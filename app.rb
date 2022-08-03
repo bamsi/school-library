@@ -1,4 +1,3 @@
-require 'pry'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'book'
@@ -14,11 +13,13 @@ class App
   end
 
   def list_books
-    puts 'list'
+    @books.each do |x|
+      puts "Title : #{x.title}, Author : #{x.author}"
+    end
   end
 
   def list_persons
-    ObjectSpace.each_object(Person) { |x| puts "[#{x.class}] Name: #{x.name}, ID: #{x.id}, Age: #{x.age}" }
+    @persons.each { |x| puts "[#{x.class}] Name: #{x.name}, ID: #{x.id}, Age: #{x.age}" }
   end
 
   def create_person(type:, age:, name:, specialization: 'unkonwn', parent_permission: true)
@@ -42,8 +43,6 @@ class App
   end
 
   def list_rental(person_id)
-    @rentals.each do |x|
-      return x if(x.person.id == person_id) 
-    end
+    @rentals.select { |x| x.person.id == person_id }
   end
 end

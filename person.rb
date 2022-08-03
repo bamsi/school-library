@@ -1,11 +1,10 @@
 require_relative 'nameable'
 class Person < Nameable
   attr_accessor :name, :age
-
   attr_reader :id, :rentals
 
   def initialize(age, name, parent_permission)
-    @id = ObjectSpace.each_object(Person).count + 1
+    @id = rand(100)
     @name = name
     @age = age
     @parent_permission = parent_permission
