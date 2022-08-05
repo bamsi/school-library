@@ -40,7 +40,7 @@ def display_create_book()
   title = gets.chomp
   print 'Author: '
   author = gets.chomp
-  @app.create_book(title: title, author: author)
+  @app.create_book(title: title)
 end
 
 def display_create_rental()
